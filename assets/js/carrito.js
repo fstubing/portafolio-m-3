@@ -124,6 +124,7 @@ function encontrarProducto(sku){
 
 cargarTablaProductos()
 
+// LÓGICA PARA VACIAR CARRITO
 document.getElementById("btn-vaciar").addEventListener("click", function(event){
   event.preventDefault();
   localStorage.setItem("productos", "[]");
@@ -132,9 +133,7 @@ document.getElementById("btn-vaciar").addEventListener("click", function(event){
 })
 
   //LÓGICA DESCUENTO POR CUPÓN
-  document
-    .getElementById("btn-descuento")
-    .addEventListener("click", function (event) {
+  document.getElementById("btn-descuento").addEventListener("click", function (event) {
       let cuponIngresado = document.getElementById("input-cupon").value;
   
       let cuponEncontrado = cupones.find(

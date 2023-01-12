@@ -92,7 +92,7 @@ let productosCarro=[]
 
 
 
-
+// logica de agregar template de producto a la página
 let parametro = new URLSearchParams(location.search)
 console.log(parametro.get("sku")); //obtenemos los ids de los productos
 let idProducto = parametro.get("sku");
