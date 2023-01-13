@@ -103,13 +103,15 @@ function cargarTablaProductos(){
                         <div class="col-sm-12 col-md-4"><img class="img-carro" src="${productoConDetalles.imagen1}" alt="imagen producto"></div>
                         <div class="col-sm-6 col-md-4">
                             <p>${productoConDetalles.nombre}</p>
+                            <br>
+                            <p>Precio Unitario ${productoConDetalles.precio}</p>
                             <P>          
                               <button onclick="restar('${productoConDetalles.sku}')">-</button>
                               <input type="number" value="${producto.cantidad}" min="0" max="10" id="cantidad-carro">
                               <button onclick="sumar('${productoConDetalles.sku}')">+</button>
                             </P>
                         </div>
-                        <div class="col-sm-6 col-md-4"><p>$${totalProducto}</p></div>                   
+                        <div class="col-sm-6 col-md-4"><p>Precio <b>$${totalProducto}</b></p></div>                   
                   </div>
                     `
       acumuladorFilas+=template;
@@ -180,6 +182,7 @@ document.getElementById("btn-vaciar").addEventListener("click", function(event){
       })
       actualizarCarro(productosCarro);
       cargarTablaProductos();
+      location.reload()
     }
   
   
@@ -190,6 +193,7 @@ document.getElementById("btn-vaciar").addEventListener("click", function(event){
       productosCarro.forEach((producto, index) => {
         if(sku == producto.codigo){
           producto.cantidad = producto.cantidad + 1;
+          console.log(producto.cantidad)
           if(producto.cantidad >= 10){
             producto.cantidad =10;
             alert("Alcanzo el limite de productos permitidos (10 unidades)")
@@ -198,5 +202,6 @@ document.getElementById("btn-vaciar").addEventListener("click", function(event){
       })
       actualizarCarro(productosCarro);
       cargarTablaProductos();
+      location.reload()
     } 
 
