@@ -62,7 +62,11 @@ let productos = [
 
 let productosCarro = [];
 
+let subtotal = 0;
+
 let precioTotalCompra = 0;
+
+let sumaProductos = 0;
 
 if(localStorage.getItem("productos")){
   productosCarro = JSON.parse(localStorage.getItem("productos"))
@@ -72,7 +76,7 @@ if(localStorage.getItem("productos")){
 function actualizarCarro(listadoProductos) {
   localStorage.setItem("productos", JSON.stringify(listadoProductos))
   const valorInicial = 0;
-  const sumaProductos = listadoProductos.reduce(
+  sumaProductos = listadoProductos.reduce(
       (accumulator, producto) => accumulator + producto.cantidad,
       valorInicial
   );
@@ -90,30 +94,31 @@ function cargarTablaProductos(){
     let productoConDetalles = encontrarProducto(producto.codigo);
     let precioUnitario = productoConDetalles.precio - descuento;
     let totalProducto = precioUnitario * producto.cantidad;
+    subtotal += totalProducto;
     precioTotalCompra += totalProducto;
-    
+    console.log(subtotal)
 
     let template = `
-    <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${productoConDetalles.sku}</td>
-        <td>${productoConDetalles.nombre}</td>
-        <td>${productoConDetalles.precio}</td>
-        <td></td>
-        <td>${precioUnitario}</td>
-        <td>
-          <button onclick="restar('${productoConDetalles.sku}')">-</button>
-          <input type="number" value="${producto.cantidad}" min="0" max="10" id="cantidad-carro">
-          <button onclick="sumar('${productoConDetalles.sku}')">+</button>
-        </td>
-        <td>${totalProducto}</td>
-    </tr>
-  `
-acumuladorFilas+=template;
+                  <div class="row m-3 p-carro">
+                        <div class="col-sm-12 col-md-4"><img class="img-carro" src="${productoConDetalles.imagen1}" alt="imagen producto"></div>
+                        <div class="col-sm-6 col-md-4">
+                            <p>${productoConDetalles.nombre}</p>
+                            <P>          
+                              <button onclick="restar('${productoConDetalles.sku}')">-</button>
+                              <input type="number" value="${producto.cantidad}" min="0" max="10" id="cantidad-carro">
+                              <button onclick="sumar('${productoConDetalles.sku}')">+</button>
+                            </P>
+                        </div>
+                        <div class="col-sm-6 col-md-4"><p>$${totalProducto}</p></div>                   
+                  </div>
+                    `
+      acumuladorFilas+=template;
 })
 
-  document.querySelector("#productos-carrito tbody").innerHTML= acumuladorFilas;
-  document.querySelector("#precio-total").innerHTML= `El precio total de la compra es: <strong>$ ${precioTotalCompra}</strong> `;
+  document.querySelector("#productos-carrito").innerHTML= acumuladorFilas;
+  document.querySelector("#cantidad-pdcto").innerHTML = `${sumaProductos} PRODUCTOS`;
+  document.querySelector("#subtotal").innerHTML = `Subtotal: $ ${subtotal}`;
+  document.querySelector("#precio-total").innerHTML= `TOTAL: <strong>$ ${precioTotalCompra}</strong> `;
 }
 
 
@@ -127,8 +132,12 @@ cargarTablaProductos()
 // LÓGICA PARA VACIAR CARRITO
 document.getElementById("btn-vaciar").addEventListener("click", function(event){
   event.preventDefault();
-  localStorage.setItem("productos", "[]");
-  location.reload();
+  let respuesta= confirm("¿Está seguro que desea vaciar el carro de compras?")
+  if(respuesta){
+    localStorage.setItem("productos", "[]");
+    location.reload();
+  }
+  
 
 })
 
@@ -136,23 +145,18 @@ document.getElementById("btn-vaciar").addEventListener("click", function(event){
   document.getElementById("btn-descuento").addEventListener("click", function (event) {
       let cuponIngresado = document.getElementById("input-cupon").value;
   
-      let cuponEncontrado = cupones.find(
-        (cupon) => cupon.nombre == cuponIngresado
-      );
-  
-  
+      let cuponEncontrado = cupones.find((cupon) => cupon.nombre == cuponIngresado);
+ 
       if (cuponEncontrado && cuponEncontrado.estado == true) {
         
         Swal.fire('Cupón aplicado')
-        precioTotalCompra =
-          precioTotalCompra -
-          (precioTotalCompra * cuponEncontrado.descuento) / 100;
-        document.querySelector(
-          "#precio-total"
-        ).innerHTML = `El precio total de la compra con descuento es: <strong>$${precioTotalCompra}</strong>`;
+        descuento = parseInt((precioTotalCompra * cuponEncontrado.descuento)/100);
+        precioTotalCompra = precioTotalCompra - descuento;
+        document.querySelector("#precio-total").innerHTML = `TOTAL: <strong>$ ${precioTotalCompra}</strong>`;
+        document.querySelector("#descuento").innerHTML = `Descuento: <strong>$ - ${descuento}</strong>`;
         cuponEncontrado.estado = false;
       } else {
-       Swal.fire('El cupón no existe. / o está caducado')
+       Swal.fire('El cupón no existe o está caducado')
 
       }
     });

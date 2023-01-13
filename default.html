@@ -14,7 +14,7 @@
   <body class="text-bg-info">
     <nav class="navbar fixed-top navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="./assets/img/pizza_icon_131067.ico" alt="icono">LA PIZZERIA</a>
+        <a class="navbar-brand" href="./index.html"><img src="./assets/img/pizza_icon_131067.ico" alt="icono">LA PIZZERIA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,24 +24,29 @@
               <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./login.html">login</a>
+              <a class="nav-link" aria-current="page" href="./contacto.html">Contacto</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Productos
+                 Login
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Hornos</a></li>
-                <li><a class="dropdown-item" href="#">Máquinas para masa</a></li>
-                <li><a class="dropdown-item" href="#">Accesorios</a></li>
+                <li><p id="saludo"><b>Login de usuario</b></p></li>
+                <li id="log-out">
+                  <form id="form-login">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" name="nombre" id="login-nombre" class="form-control my-1">
+                  <label for="password" class="form-label">password</label>
+                  <input type="password" name="password" id="login-password" class="form-control my-1" >
+                  <button type="submit" class="btn btn-primary">Ingresar</button>
+                  <button type="reset" class="btn btn-warning">Limpiar</button>
+                  </form>
+                </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="./contacto.html">Contacto</a>
             </li>
           </ul> 
           <button class="btn carro">
-            <a href="./carrito.html" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+            <a href="./cart.html" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
             </svg>              
             <p id="cantidad-productos">0</p></a>
@@ -52,23 +57,13 @@
   </nav>
 
     <main class="container">
-      <section id="login">
-        <h1 class="text-center my-5">Login de usuario</h1>
+      <img src="./assets/img/SITIO-EN-CONSTRUCCION.jpg" alt="página no disponible">
+      
+      <a href="./index.html">VOLVER AL INICIO</a>
 
-        <section>
-            <form id="form-login">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" id="login-nombre" class="form-control my-1">
-                <label for="password" class="form-label">password</label>
-                <input type="password" name="password" id="login-password" class="form-control my-1" >
-                <button type="submit" class="btn btn-primary">Ingresar</button>
-                <button type="reset" class="btn btn-warning">Limpiar</button>
-            </form>
-        </section>
-      </section>
     </main>
 
-    <br><br><br><br><br><br><br>
+
 
 
     <footer id="pie-de-pagina">
@@ -77,9 +72,9 @@
         </div>
         <nav>
           <ul>
-            <li><a href="">Términos</a></li>
-            <li><a href="">Privacidad</a></li>
-            <li><a href="">Seguridad</a></li>
+            <li><a href="./default.html">Términos</a></li>
+            <li><a href="./default.html">Privacidad</a></li>
+            <li><a href="./default.html">Seguridad</a></li>
             <li><a href="./contacto.html">Contacto</a></li>
           </ul>
         </nav>
